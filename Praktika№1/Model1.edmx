@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище PraktikaModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Employees">
+          <Key>
+            <PropertyRef Name="ID_Employee" />
+          </Key>
+          <Property Name="ID_Employee" Type="int" Nullable="false" />
+          <Property Name="Name_of_employee" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ID_JobTitle" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Job_titles">
+          <Key>
+            <PropertyRef Name="ID_JobTitle" />
+          </Key>
+          <Property Name="ID_JobTitle" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Job_title" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Employees__ID_Jo__4BAC3F29">
+          <End Role="Job_titles" Type="Self.Job_titles" Multiplicity="1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Job_titles">
+              <PropertyRef Name="ID_JobTitle" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="ID_JobTitle" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище PraktikaModelContainer">
+          <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Job_titles" EntityType="Self.Job_titles" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Employees__ID_Jo__4BAC3F29" Association="Self.FK__Employees__ID_Jo__4BAC3F29">
+            <End Role="Job_titles" EntitySet="Job_titles" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PraktikaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Employees">
+          <Key>
+            <PropertyRef Name="ID_Employee" />
+          </Key>
+          <Property Name="ID_Employee" Type="Int32" Nullable="false" />
+          <Property Name="Name_of_employee" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID_JobTitle" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Job_titles" Relationship="Self.FK__Employees__ID_Jo__4BAC3F29" FromRole="Employees" ToRole="Job_titles" />
+        </EntityType>
+        <EntityType Name="Job_titles">
+          <Key>
+            <PropertyRef Name="ID_JobTitle" />
+          </Key>
+          <Property Name="ID_JobTitle" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Job_title" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK__Employees__ID_Jo__4BAC3F29" FromRole="Job_titles" ToRole="Employees" />
+        </EntityType>
+        <Association Name="FK__Employees__ID_Jo__4BAC3F29">
+          <End Role="Job_titles" Type="Self.Job_titles" Multiplicity="1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Job_titles">
+              <PropertyRef Name="ID_JobTitle" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="ID_JobTitle" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PraktikaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Employees" EntityType="Self.Employees" />
+          <EntitySet Name="Job_titles" EntityType="Self.Job_titles" />
+          <AssociationSet Name="FK__Employees__ID_Jo__4BAC3F29" Association="Self.FK__Employees__ID_Jo__4BAC3F29">
+            <End Role="Job_titles" EntitySet="Job_titles" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище PraktikaModelContainer" CdmEntityContainer="PraktikaEntities">
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="PraktikaModel.Employees">
+              <MappingFragment StoreEntitySet="Employees">
+                <ScalarProperty Name="ID_Employee" ColumnName="ID_Employee" />
+                <ScalarProperty Name="Name_of_employee" ColumnName="Name_of_employee" />
+                <ScalarProperty Name="ID_JobTitle" ColumnName="ID_JobTitle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Job_titles">
+            <EntityTypeMapping TypeName="PraktikaModel.Job_titles">
+              <MappingFragment StoreEntitySet="Job_titles">
+                <ScalarProperty Name="ID_JobTitle" ColumnName="ID_JobTitle" />
+                <ScalarProperty Name="Job_title" ColumnName="Job_title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
